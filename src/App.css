@@ -7,6 +7,7 @@
   height: 80px;
 }
 
+
 .App-header {
   background-color: #222;
   height: 150px;
@@ -21,4 +22,90 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+.container{
+    max-width: 90%;
+    margin: 0 auto;
+}
+.right{
+    float: right;
+}
+
+.left{
+    float:left;
+}
+
+.circle{
+    border-radius: 50%;
+}
+li{
+      list-style: none;
+}
+a{
+  
+    text-decoration: none;
+}
+nav{
+    padding: 12px 14px;
+    height: 47px;
+}
+nav #main-logo{
+    color:#171717;
+    font-size: 24px;
+    font-weight: bold;
+}
+#main-user-pic{
+    max-width: 34px;
+    height: 34px;
+}
+
+#main-searchbar{
+    height: 39px;
+    color: #888;
+    font-size: 16px;
+    padding: 0 16px;
+    width: 50%;
+}
+span#list-results{
+    display: block;
+    color: #707070;
+    font-size: 12px;
+    padding: 17px 5px;
+}
+
+.filters-panel{
+    width: 100%;
+    border: 1px solid grey;
+}
+
+.filter-col{
+    width: 200px;
+    display: inline-block;
+}
+
+#user-table{
+    width: 100%;
+    border: 1px solid grey;
+    margin: 10px 0;
+}
+.user-table-item{
+    width: 244px;
+    height: 298px;
+    border: 1px solid grey;
+    display: inline-block;
+    margin: 0 75px 53px 0;
+    padding: 37px;
+}
+.user-table-item img{
+    max-width: 137px;
+}
+.filterBtn, .filterBtn a{
+    padding: 5px 8px;
+    border-radius: 3px;
+    color: grey;
+}
+
+.selected, .selected a{
+    background-color: darkgrey;
+    color: white;
 }
