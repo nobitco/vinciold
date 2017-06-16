@@ -8,9 +8,12 @@ class FilterableUserTable extends React.Component{
         super(props);
         this.handleToggleClick = this.handleToggleClick.bind(this);
         this.handleSearchInput = this.handleSearchInput.bind(this);
-        this.toggleds = [];
+        this.funcion = [];
+        this.zona = [];
         this.state = { filterText : '' ,
-                       filterToggles : []
+                       filterToggles : { funcion : [],
+                                         zona : []
+                                       }
                      };
         /*this.toggledFilters = {
             funcion : [],
@@ -24,23 +27,25 @@ class FilterableUserTable extends React.Component{
         this.setState({ filterText : searchInputValue });
         console.log(this.state.filterText);
     }
+
      
     handleToggleClick(e){
         
         e.preventDefault();
         let toggledId = e.target.id;    
         let toggledClass = e.target.className; // esto permite clasificar el arreglo para saber si son funciones, zona y horario.
-        
-        if(this.toggleds.length > 0){
-            var repeatedIndex = this.toggleds.indexOf(toggledId);
-            repeatedIndex >= 0  ?  this.toggleds.splice(repeatedIndex,1) : this.toggleds.push(toggledId);
+        let toggleArray = this.state.filterToggles[toggledClass];
+        if(toggleArray.length > 0){
+            var repeatedIndex = toggleArray.indexOf(toggledId);
+            repeatedIndex >= 0  ?  
+                this.setState({ toggleArray : toggleArray.splice(repeatedIndex,1)   }) : 
+                this.setState({ toggleArray : toggleArray.push(toggledId)});
         }else{
-            this.toggleds.push(toggledId);
+            this.setState({ toggleArray : toggleArray.push(toggledId) });;
         }
         
-        this.setState({ filterToggles : this.toggleds });
-        
         console.log(this.state.filterToggles);
+        
     }
     
     render(){

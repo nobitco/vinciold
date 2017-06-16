@@ -6,7 +6,9 @@ const UserTable = (props) => {
    
     var items = [];
     var filterText = props.filters.filterText.toString().toLowerCase();
-    var filterToggles = props.filters.filterToggles.toString().toLowerCase();
+    var filterFunciones = props.filters.filterToggles.funcion.toString().toLowerCase();
+    var filterZonas = props.filters.filterToggles.zona.toString().toLowerCase();
+    // use these array values to filter user list!
     props.usersList.forEach( (user, index) => {
         for(var prop in user){
             if(user[prop].toString().toLowerCase().includes(filterText) && prop !== 'url'){ 
