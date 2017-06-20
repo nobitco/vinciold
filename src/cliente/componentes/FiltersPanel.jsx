@@ -1,7 +1,7 @@
 import React from 'react';
 import FilterCol from './FilterCol';
 
-class FiltersPanel extends React.Component{
+export default class FiltersPanel extends React.Component{
    
   
     constructor(props){
@@ -16,8 +16,7 @@ class FiltersPanel extends React.Component{
 
     }
     render(){
-        //let funciones = this.props.toggledFilters.funcion;
-        //let zonas = this.props.toggledFilters.zona;
+
     return(
         <div className='filters-panel'>
             <FilterCol id='funcion' label='Función' items={this.funciones} onClick={this.props.onClick}  />
@@ -27,4 +26,3 @@ class FiltersPanel extends React.Component{
     
 };
 
-export default FiltersPanel;

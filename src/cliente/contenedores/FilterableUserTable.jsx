@@ -1,25 +1,20 @@
 import React from 'react';
-import SearchBar from '../componentes/SearchBar'
-import FiltersPanel from '../componentes/FiltersPanel'
-import UserTable from '../componentes/UserTable'
-class FilterableUserTable extends React.Component{
+import SearchBar from '../componentes/SearchBar';
+import FiltersPanel from '../componentes/FiltersPanel';
+import UserTable from '../componentes/UserTable';
+export default class FilterableUserTable extends React.Component{
     
     constructor(props){
         super(props);
         this.handleToggleClick = this.handleToggleClick.bind(this);
         this.handleSearchInput = this.handleSearchInput.bind(this);
-        this.funcion = [];
-        this.zona = [];
+        this.filterList = this.filterList.bind(this);
         this.state = { filterText : '' ,
                        filterToggles : { funcion : [],
                                          zona : []
                                        }
                      };
-        /*this.toggledFilters = {
-            funcion : [],
-            zona : []
-        }*/
-        
+
     }
     
     handleSearchInput(e){
@@ -48,12 +43,34 @@ class FilterableUserTable extends React.Component{
         
     }
     
+    filterList(data){
+        let filteredItems = [];
+        let filterText = this.state.filterText.toString().toLowerCase();
+        let filterFuncion = this.state.filterToggles.funcion.toString().toLowerCase();
+        let filterZona = this.state.filterToggles.zona.toString().toLowerCase();
+        
+        data.forEach( (user) => {
+            for(var prop in user){
+             if(user[prop].toString().toLowerCase().includes(filterText) && prop !== 'url'){
+                filteredItems.push(user);
+                 break;
+                } 
+                
+            }
+        });
+        return filteredItems;
+        
+        
+    }
+    
     render(){
+        
+        let filteredList = this.filterList(this.props.data);
         return(
             <div>
-                <SearchBar results={this.props.usersList.length} filterText={this.state.filterText} onSearchInputChange={this.handleSearchInput}/>
+                <SearchBar results={filteredList.length} filterText={this.state.filterText} onSearchInputChange={this.handleSearchInput}/>
                 <FiltersPanel onClick={this.handleToggleClick} />
-                <UserTable usersList={this.props.usersList}  filters={this.state}/>
+                <UserTable data={filteredList} />
             </div>
         );
     }
@@ -61,4 +78,3 @@ class FilterableUserTable extends React.Component{
 
 
 
-export default FilterableUserTable;

@@ -54,7 +54,7 @@ class Layout extends React.Component{
         return(
             <div className='container'>
                 <NavBar  />
-                <FilterableUserTable usersList={usersList} />
+                <FilterableUserTable data={usersList} />
             </div> );
         }
 }
