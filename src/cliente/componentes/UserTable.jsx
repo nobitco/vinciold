@@ -2,8 +2,6 @@ import React from 'react';
 import UserTableItem from './UserTableItem';
 
 export default (props) => {
-    
-   
 
      let data = props.data;
      let list =  data.map((user, index) => 

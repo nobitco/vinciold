@@ -1,33 +1,16 @@
 import React from 'react';
 
-export default class FilterToggle extends React.Component{
+export default  (props) => {
     
-    constructor(props){
-        super(props);
-        this.state = { on : false };
-        this.toggle = this.toggle.bind(this);
-    }
-    
-    toggle(e){
-        e.preventDefault();
-        
+    const toggle = (e) => {
         let targetParent = e.target.parentNode;
-        this.setState( (prevState) => 
-                      ({ on :  !prevState.on }));
-        
         targetParent.classList.toggle('selected');
-        this.props.onClick(e);
-    }
-    
-    render(){
-
-        return (
+        props.onClick(e);
+    } 
+    return (
         <li className="filterBtn">
-                <a href='' className={this.props.class} id={this.props.label} onClick={this.toggle}>{this.props.label}</a>
+                <a href='' className={props.class} id={props.label} onClick={toggle}>{props.label}</a>
         </li>
-        );
-    }
-    
-    
+    )    
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                           
