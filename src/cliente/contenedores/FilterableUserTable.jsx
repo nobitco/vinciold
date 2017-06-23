@@ -9,19 +9,17 @@ export default class FilterableUserTable extends React.Component{
         super(props);
         this.handleToggleClick = this.handleToggleClick.bind(this);
         this.handleSearchInput = this.handleSearchInput.bind(this);
-        this.isToggled = this.isToggled.bind(this); 
+        this.validate = this.validate.bind(this); 
         this.filterData = this.filterData.bind(this);
         this.state = { filterText : '' ,
-                       filterToggles : { funcion : [],
-                                         zona : []
-                                       }
+                       funcion : '',
+                       zona : ''
                      };
     }
     
     handleSearchInput(e){
         let searchInputValue = e.target.value;
         this.setState({ filterText : searchInputValue });
-        console.log(this.state.filterText);
     }
 
      
@@ -29,35 +27,39 @@ export default class FilterableUserTable extends React.Component{
         
         e.preventDefault();
         let toggledId = e.target.id;    
-        let toggledClass = e.target.className; // esto permite clasificar el arreglo para saber si son funciones, zona y horario.
-        let toggleArray = this.state.filterToggles[toggledClass];
-        if(toggleArray.length > 0){
-            var repeatedIndex = toggleArray.indexOf(toggledId);
-            repeatedIndex >= 0  ?  
-                this.setState({ toggleArray : toggleArray.splice(repeatedIndex,1)   }) : 
-                this.setState({ toggleArray : toggleArray.push(toggledId)   });
-        }else{
-            this.setState({ toggleArray : toggleArray.push(toggledId) });;
-        }
+        let toggledClass = e.target.className; // establece a que atributo del estado debe asignarse el valor.
         
-        //console.log(this.state.filterToggles);
+        this.setState( (prevState) => {
+            console.log(prevState[toggledClass].includes(toggledId));
+            prevState[toggledClass].includes(toggledId) ? 
+                { [toggledClass] : '' } :
+                { [toggledClass] : toggledId };
+        });
+                      
+           
+        
+        // el condicional sólo debe comparar los estados que contengan un valor para ser comparado, si no lo tiene se debe discrimar este estado a comparar.
+        console.log('filterFuncion: ' + this.state.funcion + '  filterzona:  ' + this.state.zona);
         
     }
-    isToggled(user){
-        let filterFuncion = this.state.filterToggles.funcion.toString().toLowerCase();
-        let filterZona = this.state.filterToggles.zona.toString().toLowerCase();
+ 
+    validate(user){
+        let filterFuncion = this.state.funcion.toString().toLowerCase();
+        let filterZona = this.state.zona.toString().toLowerCase();
         let userFuncion = user.funcion.toString().toLowerCase();
         let userZona = user.zona.toString().toLowerCase();
-        return filterFuncion.indexOf(userFuncion) >= 0 && filterZona.indexOf(userZona) >= 0 ?  true :  false; // aqui hay que aclarar que mientras que alguno de los dos tenga un valor
+        return true;
     }
     
     filterData(data){
-        let filteredItems;
-        if(this.state.filterToggles.funcion.length > 0 || this.state.filterToggles.zona.length > 0){
-         filteredItems = data.filter(this.isToggled);   
+    
+        if(this.state.funcion || this.state.zona ){
+        return data.filter(this.validate)
         }else{
-        filteredItems = data;
+        return data; 
         }
+        //console.log(filteredItems);
+        
         
         /*data.forEach( (user) => {
             
@@ -68,8 +70,7 @@ export default class FilterableUserTable extends React.Component{
                 }          
             }
             });*/
-        console.log(filteredItems);
-        return filteredItems; 
+        
     }
     
     render(){
